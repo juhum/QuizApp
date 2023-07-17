@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from .models import User, Questions, Question_choices, User_question_answers
+from website import db
 
 views = Blueprint('views', __name__)
 
@@ -39,11 +40,36 @@ def quiz():
                            current_question_index=current_question_index, user=user)
 
 
+
 @views.route('/submit_answer/<int:question_id>', methods=['POST'])
 def submit_answer(question_id):
     selected_choice = request.form.get('choice')
 
-    # Implement your logic to check the selected choice and update points or store the answer
+    choice = Question_choices.query.get(selected_choice)
+    is_right_choice = choice.is_right_choice if choice else False
+
+    # Store the user's answer and whether it is correct
+    user_answer = User_question_answers(user_id=current_user.user_id, question_id=question_id,
+                                        choice_id=selected_choice, is_right_choice=is_right_choice)
+    db.session.add(user_answer)
+    db.session.commit()
+
+    if selected_choice.is_right_choice:
+        current_user.points += 1
+        print('correct')
+        db.session.commit()
 
     # Redirect to the next question or result page
     return redirect(url_for('views.quiz'))
+
+
+@views.route('/quiz/completed')
+@login_required
+def quiz_completed():
+    # Retrieve the user's answers
+    user_answers = User_question_answers.query.filter_by(user_id=current_user.user_id).all()
+
+    # Calculate the number of correct answers
+    correct_answers = sum(answer.is_right_choice for answer in user_answers)
+
+    return render_template('quiz_completed.html', correct_answers=correct_answers, user=current_user)
