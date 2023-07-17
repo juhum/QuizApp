@@ -3,7 +3,7 @@
 
 {% block content %}
 <h3>{{ question.question }}</h3>
-<form method="POST" action="{{ url_for('views.quiz', question_index=current_question_index) }}">
+<form action="{{ url_for('views.submit_answer', question_id=question.question_id, question_index=current_question_index) }}" method="post">
     <input type="hidden" name="question_id" value="{{ question.question_id }}">
     {% for choice in choices %}
         {% if choice.question_id == question.question_id %}
