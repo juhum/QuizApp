@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Quiz{% endblock %}
+
+{% block content %}
+<h3>{{ question.question }}</h3>
+<form method="POST" action="{{ url_for('views.quiz', question_index=current_question_index) }}">
+    <input type="hidden" name="question_id" value="{{ question.question_id }}">
+    {% for choice in choices %}
+        {% if choice.question_id == question.question_id %}
+            <input type="radio" name="choice" value="{{ choice.choice_id }}"> {{ choice.choice }}<br>
+        {% endif %}
+    {% endfor %}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
