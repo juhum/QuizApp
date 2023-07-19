@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from .models import User, Questions, Question_choices, User_question_answers
 from website import db
@@ -42,6 +42,12 @@ def quiz():
 
 @views.route('/submit_answer/<int:question_id>', methods=['POST'])
 def submit_answer(question_id):
+    selected_choice_id = request.form.get('choice')
+    current_question_index = int(request.args.get('question_index', 0))
+    if not selected_choice_id:
+        flash('Please select a choice before submitting the form.')
+        return redirect(url_for('views.quiz', question_index=current_question_index))
+
     selected_choice_id = int(request.form.get('choice'))
     print(f"Selected choice ID: {selected_choice_id}")
 
