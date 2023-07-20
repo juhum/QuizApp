@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from .models import User, Questions, Question_choices, User_question_answers
+from .models import User, Questions, Question_choices, User_question_answers, Quiz_attempt
 from website import db
 
 views = Blueprint('views', __name__)
@@ -19,6 +19,12 @@ def quiz():
     choices = Question_choices.query.all()
     current_question_index = int(request.args.get('question_index', 0))
     user = current_user  # Assuming you are using Flask-Login's current_user
+
+    # Reset the points for the current quiz
+    if current_question_index == 0:
+        Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
+        db.session.commit()
+
 
     if request.method == 'POST':
         question_id = int(request.form.get('question_id'))
@@ -59,11 +65,16 @@ def submit_answer(question_id):
     user_answer = User_question_answers(user_id=current_user.user_id, question_id=question_id,
                                         choice_id=selected_choice_id, is_right_choice=is_right_choice)
     db.session.add(user_answer)
+    quiz_attempt = Quiz_attempt(user_id=current_user.user_id, question_id=question_id,
+                                choice_id=selected_choice_id, is_right_choice=is_right_choice)
+    db.session.add(quiz_attempt)
+
     db.session.commit()
 
     print('Current points before update:', current_user.points)
     if is_right_choice:
         current_user.points += 1
+        quiz_attempt.points += 1
         print('Current points after update:', current_user.points)
         db.session.commit()
 
@@ -75,8 +86,8 @@ def submit_answer(question_id):
         return redirect(url_for('views.quiz', question_index=next_question_index))
     else:
         # Quiz completed, redirect to the completion page
+        print("Quiz attempt points:", quiz_attempt.points)
         return redirect(url_for('views.quiz_completed'))
-
 
 
 @views.route('/quiz/completed')
@@ -86,6 +97,11 @@ def quiz_completed():
     user_answers = User_question_answers.query.filter_by(user_id=current_user.user_id).all()
 
     # Calculate the number of correct answers
-    correct_answers = sum(answer.is_right_choice for answer in user_answers)
+    total_points = sum(answer.is_right_choice for answer in user_answers)
 
-    return render_template('quiz_completed.html', correct_answers=correct_answers, user=current_user)
+    # Retrieve the points for the current quiz
+    quiz_attempts = Quiz_attempt.query.filter_by(user_id=current_user.user_id).all()
+    current_quiz_points = sum(attempt.points for attempt in quiz_attempts)
+
+    return render_template('quiz_completed.html', total_points=total_points,
+                           current_quiz_points=current_quiz_points, user=current_user)

@@ -34,3 +34,12 @@ class User_question_answers(db.Model):
     choice_id = db.Column(db.Integer, db.ForeignKey('question_choices.choice_id'))
     is_right_choice = db.Column(db.Boolean)
 
+class Quiz_attempt(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))  # Use lowercase 'u'
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.question_id'))
+    choice_id = db.Column(db.Integer, db.ForeignKey('question_choices.choice_id'))
+    is_right_choice = db.Column(db.Boolean)
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    points = db.Column(db.Integer, default=0)
+
