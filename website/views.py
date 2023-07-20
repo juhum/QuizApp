@@ -105,3 +105,23 @@ def quiz_completed():
 
     return render_template('quiz_completed.html', total_points=total_points,
                            current_quiz_points=current_quiz_points, user=current_user)
+
+
+@views.route('/profile/<username>')
+@login_required
+def profile(username):
+    if not username:
+        return "Invalid username", 400
+    # Fetch the user based on the provided username
+    user = current_user
+    user = user.nick_name
+    # print(user.nick_name)
+    # Check if the user exists
+    if user:
+        # Assuming you have a relationship between User and User_question_answers
+        user_answers = User_question_answers.query.filter_by(user_id=current_user.user_id).all()
+        total_points = sum(answer.is_right_choice for answer in user_answers)
+        return render_template("profile.html", user=current_user, total_points=total_points, name=user)
+    else:
+        # If the user doesn't exist, you can handle the error, redirect, or show a custom message.
+        return "User not found", 404
