@@ -7,7 +7,7 @@ class User(db.Model, UserMixin):
     user_id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
-    nick_name = db.Column(db.String(150))
+    nick_name = db.Column(db.String(150), unique=True)
     points = db.Column(db.Integer, default=0)
 
     def get_id(self):

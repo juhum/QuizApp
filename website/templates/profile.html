@@ -2,7 +2,12 @@
 {% block title %}Profile page{% endblock %}
 
 {% block content %}
-    <h1>Welcome to your profile</h1>
+    {% if current_user.nick_name == name %}
+        <h1>Welcome to your profile</h1>
+    {% else %}
+        <h1>Welcome to {{ name }}'s profile</h1>
+    {% endif %}
+    <h3>Profile page</h3>
     <p>Username: {{ name }}</p>
     <p>Number of total points: {{ total_points }}</p>
 {% endblock %}
