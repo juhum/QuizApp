@@ -126,3 +126,21 @@ def profile(username):
     else:
         # If the user doesn't exist, you can handle the error, redirect, or show a custom message.
         return "User not found", 404
+
+
+
+@views.route('/leaderboard')
+@login_required
+def leaderboard():
+    # Retrieve all users
+    users = User.query.all()
+
+    # Calculate the total points for each user
+    for user in users:
+        user_answers = User_question_answers.query.filter_by(user_id=user.user_id).all()
+        user.points = sum(answer.is_right_choice for answer in user_answers)
+
+    # Sort the users by points
+    users.sort(key=lambda user: user.points, reverse=True)
+
+    return render_template('leaderboard.html', users=users, user=current_user)  # Pass 'current_user' to the template
