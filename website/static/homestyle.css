@@ -21,25 +21,6 @@ body {
     font-family: 'Inconsolata', monospace;
     text-shadow: 0 20px 40px rgba(0,0,0,.5);
 }
-
-#navs ul {
-    list-style: none;
-
-}
-
-#navs li {
-
-}
-
-#navs {
-
-}
-
-#navs a {
-
-}
-
-
-#navs a:hover {
-    background-color: #555;
+li{
+    padding: 1rem;
 }
