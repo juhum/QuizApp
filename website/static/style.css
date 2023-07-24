@@ -22,24 +22,47 @@ body {
     text-shadow: 0 20px 40px rgba(0,0,0,.5);
 }
 
+
 #navs ul {
-    list-style: none;
 
 }
 
 #navs li {
 
+
+
 }
 
-#navs {
+/* Existing CSS styles */
 
+#navs {
+  background: antiquewhite;
+  height: 3.5rem;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px; /* Optional: Add some padding on the left and right to create space */
+}
+
+.home-icon {
+  margin-right: 50px; /* Add some spacing between the home icon and other links */
 }
 
 #navs a {
-
+  text-decoration: none;
+  color: black;
+  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 200;
+  text-transform: uppercase;
+  padding: 5px 10px; /* Adjust the padding as needed */
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
-
 
 #navs a:hover {
-    background-color: #555;
+  background-color: #555;
 }
+
