@@ -18,7 +18,7 @@
     </a>
     {% if user.is_authenticated %}
       <div class="dropdown">
-      <button onclick="dropdownMenu()" class="dropdown-btn dropbtn">Menu</button>
+      <button onclick="dropdownMenu()" class="dropdown-btn dropbtn">&equiv;</button>
 <div id="myDropdown" class="dropdown-content">
   <a class="nav-item nav-link" id="profile" href="{{ url_for('views.profile', username=user.nick_name) }}">Profile</a>
   <a class="nav-item nav-link" id="quiz" href="/quiz">Quiz</a>
