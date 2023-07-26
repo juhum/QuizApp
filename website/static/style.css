@@ -23,15 +23,6 @@ body {
 }
 
 
-#navs ul {
-
-}
-
-#navs li {
-
-
-
-}
 
 /* Existing CSS styles */
 
@@ -75,7 +66,7 @@ body {
   font-size: 34px;
   border: none;
   cursor: pointer;
-  transition: all 800ms cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 400ms cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 /* Dropdown button on hover & focus */
@@ -97,8 +88,9 @@ body {
   background-color: #f1f1f1;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  right: -16px; /* Adjust this value as needed to position the dropdown to the left */
+  right: -20px; /* Adjust this value as needed to position the dropdown to the left */
   width: 100vw;
+  box-sizing: border-box;
 }
 
 /* Links inside the dropdown */
@@ -110,6 +102,7 @@ body {
     text-align: right;
   left: 0; /* Align the left edge of the dropdown with the left edge of the viewport */
   right: 0;
+
 }
 
 /* Change color of dropdown links on hover */
@@ -121,5 +114,13 @@ body {
 .rotate {
   transform: rotate(90deg);
   /* Add any other necessary styles for the rotated button */
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Add this to prevent horizontal scrolling */
 }
 
