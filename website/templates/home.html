@@ -2,7 +2,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="../static/homestyle.css">
+<link rel="stylesheet" href="../static/css/homestyle.css">
 <br><br>
 <div id="main-container">
     <div class="container">
@@ -15,44 +15,41 @@
     <div class="container">
         <h2>Why Choose QuizMaster?</h2>
 
-        <li>Diverse Quiz Categories: Explore a wide range of quiz categories that cater to all interests. From General
+        <li><span class="bol">Diverse Quiz Categories:</span> Explore a wide range of quiz categories that cater to all interests. From General
             Knowledge, History, Science, and Geography to Movies, Music, Sports, and more – there's a quiz for every passion!</li>
 
-        <li>Challenge Yourself: Push your limits and test your knowledge with our thought-provoking and brain-teasing questions.
+        <li><span class="bol">Challenge Yourself:</span> Push your limits and test your knowledge with our thought-provoking and brain-teasing questions.
         Can you become a QuizMaster and conquer every quiz?</li>
 
-        <li>Learn While Playing: The QuizMaster App isn't just about fun; it's an opportunity to learn new facts, trivia, and
+        <li><span class="bol">Learn While Playing:</span> The QuizMaster App isn't just about fun; it's an opportunity to learn new facts, trivia, and
         interesting tidbits. Expand your knowledge while enjoying our engaging quizzes.</li>
 
-        <li>Compete with Friends: Invite your friends to join the quiz fun and see who can earn the highest score. Bragging
+        <li><span class="bol">Compete with Friends:</span> Invite your friends to join the quiz fun and see who can earn the highest score. Bragging
             rights await the ultimate QuizMaster!</li>
 
-        <li>Unlock Achievements: As you progress through quizzes, you'll unlock exciting achievements and badges. Show off your
+        <li><span class="bol">Unlock Achievements:</span> As you progress through quizzes, you'll unlock exciting achievements and badges. Show off your
         accomplishments and collect them all!</li>
 
-        <li>User-Friendly Interface: Our app boasts a sleek and user-friendly interface, ensuring a seamless experience as you
+        <li><span class="bol">User-Friendly Interface:</span> Our app boasts a sleek and user-friendly interface, ensuring a seamless experience as you
         navigate through quizzes and features.</li>
     </div>
     <div class="container">
         <h2>How to Play:</h2>
 
-        <li>Download and Install: Get the QuizMaster App from the App Store or Google Play Store and install it on your device.
-        </li>
 
-        <li>Sign Up or Log In: Create an account or log in if you already have one. Don't worry; it's quick and easy!</li>
+        <li><span class="bol">Sign Up or Log In:</span> Create an account or log in if you already have one. Don't worry; it's quick and easy!</li>
 
-        <li>Select a Quiz: Browse through the various quiz categories and choose the one that sparks your interest.</li>
+        <li><span class="bol">Select a Quiz:</span> Browse through the various quiz categories and choose the one that sparks your interest.</li>
 
-        <li>Answer Questions: Once you've selected a quiz, dive into the questions and select your answers. Remember, the
+        <li><span class="bol">Answer Questions:</span> Once you've selected a quiz, dive into the questions and select your answers. Remember, the
             clock might be ticking, so think fast!</li>
 
-        <li>Submit and Score: After answering all the questions, submit your answers to see your final score and find out
+        <li><span class="bol">Submit and Score:</span> After answering all the questions, submit your answers to see your final score and find out
             how well you did.</li>
 
-        <li>Challenge Friends: Share your scores on social media and invite your friends to take on the same quiz. See who can
-            outscore the others!</li>
+        <li><span class="bol">Challenge Friends:</span> Find your friends and follow their scores</li>
 
-        <li>Keep Exploring: There are plenty of quizzes to keep you entertained and learning. Keep coming back for more
+        <li><span class="bol">Keep Exploring:</span> There are plenty of quizzes to keep you entertained and learning. Keep coming back for more
             challenges and knowledge.</li>
     </div>
 
@@ -63,19 +60,21 @@
     <div class="container">
         <h3>Follow us on social media for updates, new quizzes, and exciting competitions.</h3>
 
-            <li>Instagram: @QuizMasterApp</li>
-            <li>Twitter: @QuizMasterApp</li>
-            <li>Facebook: /QuizMasterApp</li>
+            <div class="image-wrapper">
+                <a href="/"><img src="../static/img/Facebook_logo.svg" alt="facebook" width="50"></a>
+                <a href="/"><img src="../static/img/Instagram_logo.svg" alt="instagram" width="50"></a>
+                <a href="/"><img src="../static/img/Twitter_logo.svg" alt="twitter" width="50"></a>
     </div>
     <div class="container">
-        <p>For any questions, feedback, or support, feel free to reach out to our friendly customer support team at support@quizmasterapp.com.
-
+        <p>For any questions, feedback, or support, feel free to reach out to our friendly customer support team
+            <div class="image-wrapper">
+            <a href="mailto:kuszczynski.adam@gmail.com"><img src="../static/img/icons8-mail-48.png" alt="mail" width="50"></a>
+            </div>
         Let's get quizzing and have a blast!
         </p>
     </div>
 
-
-<h4>Disclaimer: QuizMaster is designed for educational and entertainment purposes. The app does not guarantee the
-    accuracy of the information provided in the quizzes. Always verify information from reliable sources.</h4>
 </div>
+</div>
+
 {% endblock %}

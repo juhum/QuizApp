@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&family=Roboto:wght@100&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;500&family=Nunito:wght@200&family=Roboto:wght@100&display=swap');
-/* || RESET */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 *,
 *::after,
 *::before {
@@ -18,8 +16,11 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Roboto', sans-serif;
+background-color: #c2c2eb;
+background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
     text-shadow: 0 20px 40px rgba(0,0,0,.5);
+
 }
 
 
@@ -117,10 +118,25 @@ body {
 }
 
 
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  overflow-x: hidden; /* Add this to prevent horizontal scrolling */
+
+/* Footer CSS */
+.footer {
+  background: red;
+  width: 100%; /* Set the width to 100% to cover the entire viewport */
+  padding: 1rem; /* Add some padding to the footer for better visibility */
+  color: white; /* Set the text color to make it visible against the red background */
+    text-align: center;
+    font-size: 11px;
+  bottom: 0;
 }
 
+/* DARK MODE */
+.dark-mode {
+  background-color: #0f132f;
+  background-image: linear-gradient(43deg, #0f132f 0%, #4c1f48 46%, #7d5e23 100%);
+  color: white;
+}
+
+.bol{
+    font-weight: bold;
+}
