@@ -122,9 +122,9 @@ background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
 /* Footer CSS */
 .footer {
   background: red;
-  width: 100%; /* Set the width to 100% to cover the entire viewport */
-  padding: 1rem; /* Add some padding to the footer for better visibility */
-  color: white; /* Set the text color to make it visible against the red background */
+  width: 100%;
+  padding: 1rem;
+  color: white;
     text-align: center;
     font-size: 11px;
   bottom: 0;
@@ -137,8 +137,11 @@ background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
   color: white;
 }
 
-.bol{
+.bol {
     font-weight: bold;
+    white-space: nowrap;
+
+
 }
 
 .no-dropdown{
@@ -151,7 +154,7 @@ background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
     display: none;
   }
 
-  /* Show the navbar links */
+
   #navs a {
     display: inline-block;
   }
@@ -159,4 +162,40 @@ background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
   .no-dropdown{
     display: inline-block;
   }
+  .container{
+    max-width: 50vw;
+  }
 }
+
+
+#main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+.container {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+
+h1, h2, h3 {
+    margin-bottom: 10px;
+}
+
+
+li {
+    margin-bottom: 10px;
+}
+
+.container li {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
