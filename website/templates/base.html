@@ -17,6 +17,12 @@
       <img src="../static/img/home-icon.png" alt="home" width="40">
     </a>
     {% if user.is_authenticated %}
+      <div class="no-dropdown">
+          <a class="nav-item nav-link" id="profile" href="{{ url_for('views.profile', username=user.nick_name) }}">Profile</a>
+            <a class="nav-item nav-link" id="quiz" href="/quiz">Quiz</a>
+            <a class="nav-item nav-link" id="leaderboard" href="/leaderboard">Ranking</a>
+                <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+          </div>
       <div class="dropdown">
       <button onclick="dropdownMenu()" class="dropdown-btn dropbtn">&equiv;</button>
 <div id="myDropdown" class="dropdown-content">

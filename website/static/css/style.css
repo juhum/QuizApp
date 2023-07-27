@@ -140,3 +140,23 @@ background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
 .bol{
     font-weight: bold;
 }
+
+.no-dropdown{
+  display: none;
+}
+
+@media (min-width: 768px) {
+  /* Hide the dropdown button */
+  .dropdown {
+    display: none;
+  }
+
+  /* Show the navbar links */
+  #navs a {
+    display: inline-block;
+  }
+
+  .no-dropdown{
+    display: inline-block;
+  }
+}
