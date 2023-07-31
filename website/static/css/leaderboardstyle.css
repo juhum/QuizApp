@@ -34,9 +34,6 @@ th {
     text-align: left;
 }
 
-tr:hover {
-    background-color: #F5F5F5;
-}
 table {
     border-collapse: separate;
     border-spacing: 0;
@@ -47,3 +44,20 @@ table {
 tr{
     height: 50px;
 }
+
+td, th {
+    padding: 1rem;
+    text-align: center;
+}
+
+table {
+    margin: auto;
+}
+
+
+@media (min-width: 600px) {
+    table {
+        width: 25rem;
+    }
+}
+
