@@ -41,3 +41,15 @@ window.onclick = function(event) {
 }
 
 
+let prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+    const currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
+        document.getElementById("navs").style.top = "0";
+        document.getElementById("navs").style.transition = "top 0.2s ease-in-out";
+    } else {
+        document.getElementById("navs").style.top = "-3.5rem";
+        document.getElementById("navs").style.transition = "top 0.2s ease-in-out";
+    }
+    prevScrollpos = currentScrollPos;
+}
