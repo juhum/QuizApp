@@ -120,16 +120,24 @@ background-image: linear-gradient(43deg, #c2c2eb 0%, #d697d1 46%, #FFCC70 100%);
 
 
 /* Footer CSS */
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+}
+
 .footer {
   background: red;
   width: 100%;
   padding: 1rem;
   color: white;
-    text-align: center;
-    font-size: 11px;
-  bottom: 0;
+  text-align: center;
+  font-size: 11px;
 }
-
 /* DARK MODE */
 .dark-mode {
   background-color: #0f132f;

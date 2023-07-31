@@ -1,0 +1,49 @@
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+.container{
+    /*align-content: center;*/
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*justify-items: center;*/
+    text-align: center;
+    /*max-width: 300px;*/
+    margin: 0 auto;
+    /*border: 3px solid red;*/
+    padding: 1.25rem;
+
+}
+
+tr:nth-child(even) {
+    background-color: #D6EEEE;
+}
+th {
+    text-align: left;
+}
+
+tr:hover {
+    background-color: #F5F5F5;
+}
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    width: 100%;
+}
+
+tr{
+    height: 50px;
+}
