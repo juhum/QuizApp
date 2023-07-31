@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Profile page{% endblock %}
 
+<div class="container">
+
 {% block content %}
+<link rel="stylesheet" href="../static/css/profilestyle.css">
+
     {% if current_user.nick_name == name %}
         <h1>Welcome to your profile</h1>
     {% else %}
@@ -10,4 +14,5 @@
     <h3>Profile page</h3>
     <p>Username: {{ name }}</p>
     <p>Number of total points: {{ total_points }}</p>
+    </div>
 {% endblock %}
