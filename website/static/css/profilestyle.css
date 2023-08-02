@@ -39,19 +39,12 @@ h1 {
     padding: 15px;
 }
 
-.logo{
+img{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     /*border: 3px solid red;*/
     padding: 1.25rem;
-}
-
-
-@media (min-width: 768px) {
-  .container{
-    max-width: 50vw;
-  }
 }
 
