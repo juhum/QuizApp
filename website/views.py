@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from .models import User, Questions, Question_choices, User_question_answers, Quiz_attempt
 from website import db
+from random import shuffle
 
 views = Blueprint('views', __name__)
 
@@ -16,14 +17,22 @@ def home():
 @login_required
 def quiz():
     questions = Questions.query.all()
+    shuffle(questions)  # Randomize the order of the questions
+    questions = questions[:5]  # Select the first 5 questions for the quiz
     choices = Question_choices.query.all()
     current_question_index = int(request.args.get('question_index', 0))
     user = current_user  # Assuming you are using Flask-Login's current_user
+
+    current_question_index = int(request.args.get('question_index', 0))
+    if current_question_index >= len(questions):
+        current_question_index = 0
 
     # Reset the points for the current quiz
     if current_question_index == 0:
         Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
         db.session.commit()
+
+
 
 
     if request.method == 'POST':
@@ -32,7 +41,7 @@ def quiz():
         # Save the user's answer and perform necessary actions
 
         # Check if there are more questions
-        if current_question_index + 1 < len(questions):
+        if current_question_index + 1 < 5:
             next_question_index = current_question_index + 1
             return redirect(url_for('views.quiz', question_index=next_question_index))
         else:
@@ -50,6 +59,7 @@ def quiz():
 def submit_answer(question_id):
     selected_choice_id = request.form.get('choice')
     current_question_index = int(request.args.get('question_index', 0))
+
     if not selected_choice_id:
         flash('Please select a choice before submitting the form.')
         return redirect(url_for('views.quiz', question_index=current_question_index))
@@ -71,6 +81,8 @@ def submit_answer(question_id):
 
     db.session.commit()
 
+
+
     print('Current points before update:', current_user.points)
     if is_right_choice:
         current_user.points += 1
@@ -79,14 +91,12 @@ def submit_answer(question_id):
         db.session.commit()
 
     # Check if there are more questions
-    questions = Questions.query.all()
     current_question_index = int(request.args.get('question_index', 0))
-    if current_question_index + 1 < len(questions):
+    if current_question_index + 1 < 5:
         next_question_index = current_question_index + 1
         return redirect(url_for('views.quiz', question_index=next_question_index))
     else:
-        # Quiz completed, redirect to the completion page
-        print("Quiz attempt points:", quiz_attempt.points)
+        # Quiz completed, redirect to a result page or any other page
         return redirect(url_for('views.quiz_completed'))
 
 
@@ -112,11 +122,7 @@ def quiz_completed():
 def profile(username):
     if not username:
         return "Invalid username", 400
-    # # Fetch the user based on the provided username
-    # user = current_user
-    # user = user.nick_name
-    # print(user.nick_name)
-    # Check if the user exists
+
     user = User.query.filter_by(nick_name=username).first()
     if user:
         # Assuming you have a relationship between User and User_question_answers
@@ -132,10 +138,8 @@ def profile(username):
 @views.route('/leaderboard')
 @login_required
 def leaderboard():
-    # Retrieve all users
     users = User.query.all()
 
-    # Calculate the total points for each user
     for user in users:
         user_answers = User_question_answers.query.filter_by(user_id=user.user_id).all()
         user.points = sum(answer.is_right_choice for answer in user_answers)
@@ -143,4 +147,10 @@ def leaderboard():
     # Sort the users by points
     users.sort(key=lambda user: user.points, reverse=True)
 
-    return render_template('leaderboard.html', users=users, user=current_user)  # Pass 'current_user' to the template
+    return render_template('leaderboard.html', users=users, user=current_user)
+
+
+@views.route('/quiz/start')
+@login_required
+def start_quiz():
+    return render_template('quiz_start.html', user=current_user)
