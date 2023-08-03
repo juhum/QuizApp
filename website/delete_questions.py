@@ -2,6 +2,7 @@ from website import create_app
 from website.models import User_question_answers, Question_choices, Questions
 from website import db
 
+
 def delete_previous_questions():
     with app.app_context():
         # Delete User_question_answers first to avoid foreign key constraints
@@ -15,6 +16,7 @@ def delete_previous_questions():
         # Delete Questions
         Questions.query.delete()
         db.session.commit()
+
 
 if __name__ == "__main__":
     app = create_app()

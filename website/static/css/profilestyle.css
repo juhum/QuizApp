@@ -12,18 +12,20 @@ html {
     scroll-behavior: smooth;
 }
 
-.container {
-    width: 80%;
-    height: 60%;
+.inner-container {
+
     margin: 0 auto;
     padding: 20px;
     background-color: #fff; /* White background for the profile card */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for a cozy touch */
     border-radius: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
 }
+
+.container {
+    align-content: center;
+    margin: 0 auto;
+}
+
 
 h1, h3 {
     text-align: center;
@@ -50,8 +52,8 @@ h1 {
 
 
 @media (min-width: 768px) {
-  .container{
-    max-width: 50vw;
+  .container {
+    width: 90%;
   }
 }
 

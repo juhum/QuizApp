@@ -2,17 +2,21 @@
 {% block title %}Profile page{% endblock %}
 
 
-<div class="container">
+
 {% block content %}
-<link rel="stylesheet" href="../static/css/profilestyle.css">
-    {% if current_user.nick_name == name %}
-        <h1>Welcome to your profile</h1>
-    {% else %}
-        <h1>Welcome to {{ name }}'s profile</h1>
-    {% endif %}
-    <h3>Profile page</h3>
-    <p><span class="bol">Username:</span> {{ name }}</p>
-    <p><span class="bol">Number of total points:</span> {{ total_points }}</p>
-    <img class="logo" src="../static/img/quiz-app-icon-temp.jpg" alt="quiz-app-icon" width="200">
+<div id="main-container">
+    <div class="inner-container">
+        <link rel="stylesheet" href="../static/css/profilestyle.css">
+        {% if current_user.nick_name == name %}
+            <h1>Welcome to your profile</h1>
+        {% else %}
+            <h1>Welcome to {{ name }}'s profile</h1>
+        {% endif %}
+        <h3>Profile page</h3>
+        <p><span class="bol">Username:</span> {{ name }}</p>
+        <p><span class="bol">Number of total points:</span> {{ total_points }}</p>
+        <img class="logo" src="../static/img/quiz-app-icon-temp.jpg" alt="quiz-app-icon" width="200">
     </div>
+</div>
 {% endblock %}
+
