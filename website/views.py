@@ -23,9 +23,9 @@ def quiz():
     current_question_index = int(request.args.get('question_index', 0))
     user = current_user  # Assuming you are using Flask-Login's current_user
 
-    current_question_index = int(request.args.get('question_index', 0))
-    if current_question_index >= len(questions):
-        current_question_index = 0
+    # current_question_index = int(request.args.get('question_index', 0))
+    # if current_question_index >= len(questions):
+    #     current_question_index = 0
 
     # Reset the points for the current quiz
     if current_question_index == 0:
@@ -57,12 +57,17 @@ def quiz():
 
 @views.route('/submit_answer/<int:question_id>', methods=['POST'])
 def submit_answer(question_id):
+    questions = Questions.query.all()
     selected_choice_id = request.form.get('choice')
     current_question_index = int(request.args.get('question_index', 0))
-
+    current_question = questions[current_question_index]
+    choices = Question_choices.query.all()
+    choices_for_current_question = [choice for choice in choices if choice.question_id == current_question.question_id]
     if not selected_choice_id:
         flash('Please select a choice before submitting the form.')
-        return redirect(url_for('views.quiz', question_index=current_question_index))
+        return render_template("quiz.html", question=current_question, choices=choices_for_current_question,
+                               current_question_index=current_question_index, user=current_user,
+                               question_id=current_question.question_id)
 
     selected_choice_id = int(request.form.get('choice'))
     print(f"Selected choice ID: {selected_choice_id}")
