@@ -122,7 +122,7 @@ def quiz_completed():
                            current_quiz_points=current_quiz_points, user=current_user)
 
 
-@views.route('/profile/<username>')
+@views.route('/user/<username>')
 @login_required
 def profile(username):
     if not username:
@@ -137,7 +137,6 @@ def profile(username):
     else:
         # If the user doesn't exist, you can handle the error, redirect, or show a custom message.
         return "User not found", 404
-
 
 
 @views.route('/leaderboard')

@@ -18,7 +18,7 @@
             {% for user in users %}
             <tr>
                 <th scope="row">{{ loop.index }}</th>
-                <td><a href="/profile/{{ user.nick_name }}">{{ user.nick_name }}</a></td>
+                <td><a href="/user/{{ user.nick_name }}">{{ user.nick_name }}</a></td>
                 <td>{{ user.points }}</td>
             </tr>
             {% endfor %}
