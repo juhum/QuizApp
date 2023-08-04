@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, current_user
 from .models import User, Questions, Question_choices, User_question_answers, Quiz_attempt
 from website import db
@@ -10,35 +10,35 @@ views = Blueprint('views', __name__)
 @views.route('/')
 # @login_required
 def home():
+    session.clear()
     return render_template("home.html", user=current_user)
 
 
 @views.route('/quiz', methods=['GET', 'POST'])
 @login_required
 def quiz():
-    questions = Questions.query.all()
-    shuffle(questions)  # Randomize the order of the questions
-    questions = questions[:5]  # Select the first 5 questions for the quiz
+
+    if 'questions' not in session:
+        # Randomize the questions and store them in a session variable
+        questions = Questions.query.all()
+        shuffle(questions)
+        session['questions'] = [question.question_id for question in questions[:5]]
+
+    # Retrieve the randomized list of questions from the session variable
+    question_ids = session['questions']
     choices = Question_choices.query.all()
     current_question_index = int(request.args.get('question_index', 0))
     user = current_user  # Assuming you are using Flask-Login's current_user
 
-    # current_question_index = int(request.args.get('question_index', 0))
-    # if current_question_index >= len(questions):
-    #     current_question_index = 0
+    question_ids = session['questions']
+    questions = Questions.query.filter(Questions.question_id.in_(question_ids)).all()
 
     # Reset the points for the current quiz
     if current_question_index == 0:
         Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
         db.session.commit()
 
-
-
-
     if request.method == 'POST':
-        question_id = int(request.form.get('question_id'))
-        choice_id = int(request.form.get('choice'))
-        # Save the user's answer and perform necessary actions
 
         # Check if there are more questions
         if current_question_index + 1 < 5:
@@ -52,7 +52,8 @@ def quiz():
     choices_for_current_question = [choice for choice in choices if choice.question_id == current_question.question_id]
 
     return render_template("quiz.html", question=current_question, choices=choices_for_current_question,
-                           current_question_index=current_question_index, user=user, question_id=current_question.question_id)
+                           current_question_index=current_question_index, user=user,
+                           question_id=current_question.question_id)
 
 
 @views.route('/submit_answer/<int:question_id>', methods=['POST'])
@@ -69,9 +70,9 @@ def submit_answer(question_id):
                                current_question_index=current_question_index, user=current_user,
                                question_id=current_question.question_id)
 
+
     selected_choice_id = int(request.form.get('choice'))
     print(f"Selected choice ID: {selected_choice_id}")
-
     choice = Question_choices.query.get(selected_choice_id)
     is_right_choice = choice.is_right_choice if choice else False
     print(f"Is right choice: {is_right_choice}")
@@ -85,8 +86,6 @@ def submit_answer(question_id):
     db.session.add(quiz_attempt)
 
     db.session.commit()
-
-
 
     print('Current points before update:', current_user.points)
     if is_right_choice:
@@ -117,6 +116,7 @@ def quiz_completed():
     # Retrieve the points for the current quiz
     quiz_attempts = Quiz_attempt.query.filter_by(user_id=current_user.user_id).all()
     current_quiz_points = sum(attempt.points for attempt in quiz_attempts)
+    session.clear()
 
     return render_template('quiz_completed.html', total_points=total_points,
                            current_quiz_points=current_quiz_points, user=current_user)
@@ -125,6 +125,7 @@ def quiz_completed():
 @views.route('/user/<username>')
 @login_required
 def profile(username):
+    session.clear()
     if not username:
         return "Invalid username", 400
 
@@ -142,6 +143,7 @@ def profile(username):
 @views.route('/leaderboard')
 @login_required
 def leaderboard():
+    session.clear()
     users = User.query.all()
 
     for user in users:
@@ -157,4 +159,5 @@ def leaderboard():
 @views.route('/quiz/start')
 @login_required
 def start_quiz():
+    session.clear()
     return render_template('quiz_start.html', user=current_user)
