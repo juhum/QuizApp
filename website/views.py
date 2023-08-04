@@ -17,7 +17,6 @@ def home():
 @views.route('/quiz', methods=['GET', 'POST'])
 @login_required
 def quiz():
-
     if 'questions' not in session:
         # Randomize the questions and store them in a session variable
         questions = Questions.query.all()
@@ -70,12 +69,10 @@ def submit_answer(question_id):
                                current_question_index=current_question_index, user=current_user,
                                question_id=current_question.question_id)
 
-
-    selected_choice_id = int(request.form.get('choice'))
-    print(f"Selected choice ID: {selected_choice_id}")
+    # print(f"Selected choice ID: {selected_choice_id}")
     choice = Question_choices.query.get(selected_choice_id)
     is_right_choice = choice.is_right_choice if choice else False
-    print(f"Is right choice: {is_right_choice}")
+    # print(f"Is right choice: {is_right_choice}")
 
     # Store the user's answer and whether it is correct
     user_answer = User_question_answers(user_id=current_user.user_id, question_id=question_id,
@@ -87,11 +84,11 @@ def submit_answer(question_id):
 
     db.session.commit()
 
-    print('Current points before update:', current_user.points)
+    # print('Current points before update:', current_user.points)
     if is_right_choice:
         current_user.points += 1
         quiz_attempt.points += 1
-        print('Current points after update:', current_user.points)
+        # print('Current points after update:', current_user.points)
         db.session.commit()
 
     # Check if there are more questions

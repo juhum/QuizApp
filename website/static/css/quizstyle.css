@@ -62,13 +62,6 @@ form {
 }
 
 
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 form {
     /* Add these styles to center the form */
     display: flex;
