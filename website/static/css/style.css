@@ -212,3 +212,32 @@ li {
     top: 0;
     z-index: 9;
 }
+
+
+.success {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Style for error flash messages */
+.error {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.close-button {
+    color: #aaa;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
