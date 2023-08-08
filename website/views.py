@@ -39,9 +39,21 @@ def quiz():
     questions = Questions.query.filter(Questions.question_id.in_(question_ids)).all()
 
     # Reset the points for the current quiz
-    if current_question_index == 0:
-        Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
-        db.session.commit()
+    # if current_question_index == 0:
+    #     Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
+    #     db.session.commit()
+
+    # Check if current_question_index is within expected range
+    num_answered_questions = Quiz_attempt.query.filter_by(user_id=current_user.user_id).count()
+    if current_question_index > num_answered_questions:
+        flash('You cannot skip ahead!', category='error')
+        return redirect(url_for('views.quiz', question_index=num_answered_questions))
+    elif current_question_index < num_answered_questions:
+        flash('You cannot go back to previous questions!', category='error')
+        return redirect(url_for('views.quiz', question_index=num_answered_questions))
+    elif current_question_index == 0 and num_answered_questions > 0:
+        flash('You cannot restart the quiz!', category='error')
+        return redirect(url_for('views.quiz', question_index=num_answered_questions))
 
     if request.method == 'POST':
 
@@ -59,6 +71,7 @@ def quiz():
     return render_template("quiz.html", question=current_question, choices=choices_for_current_question,
                            current_question_index=current_question_index, user=user,
                            question_id=current_question.question_id)
+
 
 
 @views.route('/submit_answer/<int:question_id>', methods=['POST'])
@@ -159,9 +172,11 @@ def leaderboard():
     return render_template('leaderboard.html', users=users, user=current_user)
 
 
-@views.route('/quiz/start')
+@views.route('/quiz/start', methods=['GET', 'POST'])
 @login_required
 def start_quiz():
     session.clear()
     session['quiz_started'] = True
+    Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
+    db.session.commit()
     return render_template('quiz_start.html', user=current_user)
