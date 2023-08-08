@@ -10,13 +10,19 @@ views = Blueprint('views', __name__)
 @views.route('/')
 # @login_required
 def home():
-    # session.clear()
+    flash_message = session.get('_flashes')
+    session.clear()
+    if flash_message:
+        session['_flashes'] = flash_message
+
     return render_template("home.html", user=current_user)
 
 
 @views.route('/quiz', methods=['GET', 'POST'])
 @login_required
 def quiz():
+    if 'quiz_started' not in session:
+        return redirect(url_for('views.start_quiz'))
     if 'questions' not in session:
         # Randomize the questions and store them in a session variable
         questions = Questions.query.all()
@@ -157,4 +163,5 @@ def leaderboard():
 @login_required
 def start_quiz():
     session.clear()
+    session['quiz_started'] = True
     return render_template('quiz_start.html', user=current_user)
