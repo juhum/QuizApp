@@ -173,6 +173,10 @@ body {
   .container{
     /*max-width: 50vw;*/
   }
+  .logged-out{
+      display: inline-block;
+  }
+
 }
 
 
