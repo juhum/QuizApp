@@ -17,6 +17,26 @@
         <p><span class="bol">Number of total points:</span> {{ total_points }}</p>
         <img class="logo" src="../static/img/quiz-app-icon-temp.jpg" alt="quiz-app-icon" width="200">
     </div>
+
+<div class="inner-container">
+<form method="GET" onsubmit="return redirectToUser()">
+    <input type="text" name="username" id="usernameInput" placeholder="Enter username">
+    <button type="submit">Search</button>
+</form>
 </div>
+        </div>
+<script>
+function redirectToUser() {
+    const username = document.getElementById("usernameInput").value;
+    if (username.trim() !== "") {
+        // Replace spaces and special characters in the username with hyphens
+        const sanitizedUsername = username.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
+        window.location.href = "/user/" + sanitizedUsername;
+        return false; // Prevent form submission
+    }
+}
+</script>
+
+
 {% endblock %}
 

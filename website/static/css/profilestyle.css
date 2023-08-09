@@ -13,12 +13,12 @@ html {
 }
 
 .inner-container {
-
     margin: 0 auto;
     padding: 20px;
     background-color: #fff; /* White background for the profile card */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for a cozy touch */
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .container {
@@ -41,6 +41,7 @@ h1 {
     padding: 15px;
 }
 
+
 .logo{
     display: flex;
     justify-content: center;
@@ -55,5 +56,12 @@ h1 {
   .container {
     width: 90%;
   }
+}
+
+@media (min-width: 1440px){
+    .container {
+        flex-direction: column;
+}
+
 }
 
