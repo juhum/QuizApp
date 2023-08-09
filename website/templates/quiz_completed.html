@@ -2,7 +2,12 @@
 {% block title %}Quiz Completed{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="../static/css/quiz_completed.css">
+<div id="main-container">
+    <div class="inner-container">
     <h1>Quiz Completed</h1>
     <p>Number of total points: {{ total_points }}</p>
     <p>Number of Correct Answers: {{ current_quiz_points }}</p>
+</div>
+</div>
 {% endblock %}
