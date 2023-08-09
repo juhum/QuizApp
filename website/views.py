@@ -24,7 +24,6 @@ def quiz():
     if 'quiz_started' not in session:
         return redirect(url_for('views.start_quiz'))
     if 'questions' not in session:
-        # Randomize the questions and store them in a session variable
         questions = Questions.query.all()
         shuffle(questions)
         session['questions'] = [question.question_id for question in questions[:5]]
@@ -37,11 +36,6 @@ def quiz():
 
     question_ids = session['questions']
     questions = Questions.query.filter(Questions.question_id.in_(question_ids)).all()
-
-    # Reset the points for the current quiz
-    # if current_question_index == 0:
-    #     Quiz_attempt.query.filter_by(user_id=current_user.user_id).delete()
-    #     db.session.commit()
 
     # Check if current_question_index is within expected range
     num_answered_questions = Quiz_attempt.query.filter_by(user_id=current_user.user_id).count()
@@ -103,33 +97,25 @@ def submit_answer(question_id):
 
     db.session.commit()
 
-    # print('Current points before update:', current_user.points)
     if is_right_choice:
         current_user.points += 1
         quiz_attempt.points += 1
-        # print('Current points after update:', current_user.points)
         db.session.commit()
 
-    # Check if there are more questions
     current_question_index = int(request.args.get('question_index', 0))
     if current_question_index + 1 < 5:
         next_question_index = current_question_index + 1
         return redirect(url_for('views.quiz', question_index=next_question_index))
     else:
-        # Quiz completed, redirect to a result page or any other page
         return redirect(url_for('views.quiz_completed'))
 
 
 @views.route('/quiz/completed')
 @login_required
 def quiz_completed():
-    # Retrieve the user's answers
     user_answers = User_question_answers.query.filter_by(user_id=current_user.user_id).all()
-
-    # Calculate the number of correct answers
     total_points = sum(answer.is_right_choice for answer in user_answers)
 
-    # Retrieve the points for the current quiz
     quiz_attempts = Quiz_attempt.query.filter_by(user_id=current_user.user_id).all()
     current_quiz_points = sum(attempt.points for attempt in quiz_attempts)
     session.clear()
@@ -147,13 +133,11 @@ def profile(username):
 
     user = User.query.filter_by(nick_name=username).first()
     if user:
-        # Assuming you have a relationship between User and User_question_answers
         user_answers = User_question_answers.query.filter_by(user_id=user.user_id).all()
         total_points = sum(answer.is_right_choice for answer in user_answers)
         return render_template("profile.html", user=current_user, total_points=total_points, name=user.nick_name)
     else:
-        # If the user doesn't exist, you can handle the error, redirect, or show a custom message.
-        return "User not found", 404
+        return render_template("user_not_found.html", user=current_user)
 
 
 @views.route('/leaderboard')
