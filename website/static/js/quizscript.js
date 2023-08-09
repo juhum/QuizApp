@@ -33,3 +33,17 @@ document.getElementById("quiz-form").addEventListener("submit", function(event) 
         event.preventDefault();
     }
 });
+
+
+
+let formSubmitted = false;
+
+document.querySelector('form').addEventListener('submit', function() {
+    formSubmitted = true;
+});
+
+window.onbeforeunload = function () {
+  if (!formSubmitted && window.location.href !== window.origin + '/quiz') {
+    return 'Are you sure you want to leave the quiz?';
+  }
+}
