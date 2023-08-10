@@ -65,3 +65,20 @@ h1 {
 
 }
 
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #3CBC8D;
+    color: white;
+}
+button:hover, button:focus {
+    background-color: #2E8B57;
+}
+
+.searcher{
+    text-align: left;
+}
