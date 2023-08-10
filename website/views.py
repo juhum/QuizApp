@@ -8,7 +8,6 @@ views = Blueprint('views', __name__)
 
 
 @views.route('/')
-# @login_required
 def home():
     flash_message = session.get('_flashes')
     session.clear()
@@ -32,7 +31,7 @@ def quiz():
     question_ids = session['questions']
     choices = Question_choices.query.all()
     current_question_index = int(request.args.get('question_index', 0))
-    user = current_user  # Assuming you are using Flask-Login's current_user
+    user = current_user
 
     question_ids = session['questions']
     questions = Questions.query.filter(Questions.question_id.in_(question_ids)).all()
@@ -56,7 +55,7 @@ def quiz():
             next_question_index = current_question_index + 1
             return redirect(url_for('views.quiz', question_index=next_question_index))
         else:
-            # Quiz completed, redirect to a result page or any other page
+            # Quiz completed
             return redirect(url_for('views.quiz_completed'))
 
     current_question = questions[current_question_index]
@@ -65,7 +64,6 @@ def quiz():
     return render_template("quiz.html", question=current_question, choices=choices_for_current_question,
                            current_question_index=current_question_index, user=user,
                            question_id=current_question.question_id)
-
 
 
 @views.route('/submit_answer/<int:question_id>', methods=['POST'])
@@ -82,12 +80,9 @@ def submit_answer(question_id):
                                current_question_index=current_question_index, user=current_user,
                                question_id=current_question.question_id)
 
-    # print(f"Selected choice ID: {selected_choice_id}")
     choice = Question_choices.query.get(selected_choice_id)
     is_right_choice = choice.is_right_choice if choice else False
-    # print(f"Is right choice: {is_right_choice}")
 
-    # Store the user's answer and whether it is correct
     user_answer = User_question_answers(user_id=current_user.user_id, question_id=question_id,
                                         choice_id=selected_choice_id, is_right_choice=is_right_choice)
     db.session.add(user_answer)
