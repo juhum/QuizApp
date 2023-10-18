@@ -63,12 +63,18 @@ form {
 
 
 form {
-    /* Add these styles to center the form */
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto; /* This will center the form horizontally */
-    max-width: 600px; /* You can adjust the max-width as needed */
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#navs{
+    display: none;
+}
+.nav-container{
+    display: none;
 }
 
 

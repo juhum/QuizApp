@@ -22,7 +22,7 @@
     <h3 class="searcher">Search friend</h3>
 <form method="GET" onsubmit="return redirectToUser()">
     <input type="text" name="username" id="usernameInput" placeholder="Enter username">
-    <button type="submit">Search</button>
+    <button class="search-btn" type="submit">Search</button>
 </form>
 </div>
         </div>
@@ -30,10 +30,9 @@
 function redirectToUser() {
     const username = document.getElementById("usernameInput").value;
     if (username.trim() !== "") {
-        // Replace spaces and special characters in the username with hyphens
         const sanitizedUsername = username.replace(/\s+/g, '-').replace(/[^a-zA-Z0-9-]/g, '');
         window.location.href = "/user/" + sanitizedUsername;
-        return false; // Prevent form submission
+        return false;
     }
 }
 </script>

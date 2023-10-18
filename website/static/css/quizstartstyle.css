@@ -13,9 +13,7 @@ html {
 }
 
 
-
-
-button {
+.button-start {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px;
@@ -32,11 +30,11 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto; /* This will center the form horizontally */
-    max-width: 600px; /* You can adjust the max-width as needed */
+    margin: 0 auto;
+    max-width: 600px;
     margin-top: 2rem;
 }
 
-button:hover, button:focus {
+.button-start:hover, .button-start:focus {
     background-color: #2E8B57;
 }

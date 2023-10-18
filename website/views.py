@@ -27,7 +27,6 @@ def quiz():
         shuffle(questions)
         session['questions'] = [question.question_id for question in questions[:5]]
 
-    # Retrieve the randomized list of questions from the session variable
     question_ids = session['questions']
     choices = Question_choices.query.all()
     current_question_index = int(request.args.get('question_index', 0))
@@ -36,7 +35,6 @@ def quiz():
     question_ids = session['questions']
     questions = Questions.query.filter(Questions.question_id.in_(question_ids)).all()
 
-    # Check if current_question_index is within expected range
     num_answered_questions = Quiz_attempt.query.filter_by(user_id=current_user.user_id).count()
     if current_question_index > num_answered_questions:
         flash('You cannot skip ahead!', category='error')
@@ -145,7 +143,6 @@ def leaderboard():
         user_answers = User_question_answers.query.filter_by(user_id=user.user_id).all()
         user.points = sum(answer.is_right_choice for answer in user_answers)
 
-    # Sort the users by points
     users.sort(key=lambda user: user.points, reverse=True)
 
     return render_template('leaderboard.html', users=users, user=current_user)

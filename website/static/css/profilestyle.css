@@ -65,7 +65,7 @@ h1 {
 
 }
 
-button {
+.search-btn {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px;
@@ -75,10 +75,12 @@ button {
     background-color: #3CBC8D;
     color: white;
 }
-button:hover, button:focus {
+
+.search-btn:hover, .search-btn:focus {
     background-color: #2E8B57;
 }
 
 .searcher{
     text-align: left;
 }
+
