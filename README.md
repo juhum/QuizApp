@@ -47,4 +47,3 @@ There also data_insert.py script which you can use to insert new questions into 
 - Search friend system
 
 
-![showcase](https://github.com/juhum/draughts/blob/main/misc/showcase.gif)
