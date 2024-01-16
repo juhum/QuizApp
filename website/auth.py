@@ -57,7 +57,7 @@ def sign_up():
         else:
             # Create a new user with hashed password
             new_user = User(email=email, nick_name=nick_name,
-                            password=generate_password_hash(password1, method='sha256'), points=0)
+                            password=generate_password_hash(password1, method='pbkdf2:sha256'), points=0)
             # Save the new user to the database
             db.session.add(new_user)
             db.session.commit()
