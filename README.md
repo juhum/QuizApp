@@ -46,4 +46,4 @@ There also data_insert.py script which you can use to insert new questions into 
 
 - Search friend system
 
-
+![showcase](https://github.com/juhum/QuizApp/blob/master/showcase.gif)
